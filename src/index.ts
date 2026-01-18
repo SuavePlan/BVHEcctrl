@@ -56,6 +56,21 @@ export { usePerformanceMonitor, getMemoryStats, formatBytes } from "./utils/perf
 export type { PerformanceStats, PerformanceMonitorOptions } from "./utils/performanceMonitor";
 export * from "./utils/physics";
 
+// Export joint tracking utilities
+export { useJointTracker, findBoneNames, COMMON_BONE_NAMES } from "./utils/jointTracker";
+export type {
+  JointExtension,
+  JointEvent,
+  FootstepEvent,
+  BreathingEvent,
+  ImpactEvent,
+  JointConfig,
+  JointEventListener,
+  FootstepEventListener,
+  BreathingEventListener,
+  ImpactEventListener,
+} from "./utils/jointTracker";
+
 // Export types for movement input and character animation status
 export type MovementInput = {
   forward?: boolean;
