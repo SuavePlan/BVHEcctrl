@@ -43,7 +43,7 @@ import React, {
   type RefAttributes,
 } from "react";
 import * as THREE from "three";
-import { clamp } from "three/src/math/MathUtils";
+import { clamp } from "three/src/math/MathUtils.js";
 import type { CharacterAnimationStatus, FloatCheckType, MovementInput } from ".";
 import { useEcctrlStore } from ".";
 import { useJoystickStore } from ".";
@@ -134,9 +134,11 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     const characterColliderRef = useRef<THREE.Mesh | null>(null);
     const characterModelRef = useRef<THREE.Group | null>(null);
     // Debug indicators meshes
+    // @ts-expect-error - Debug variable for future use
     const _debugBbox = useRef<THREE.Mesh | null>(null);
     const debugLineStart = useRef<THREE.Mesh | null>(null);
     const debugLineEnd = useRef<THREE.Mesh | null>(null);
+    // @ts-expect-error - Debug variable for future use
     const _debugRaySensorBbox = useRef<THREE.Mesh | null>(null);
     const debugRaySensorStart = useRef<THREE.Mesh | null>(null);
     const debugRaySensorEnd = useRef<THREE.Mesh | null>(null);
@@ -202,7 +204,9 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     const localUpAxis = useRef<THREE.Vector3>(new THREE.Vector3());
     const gravityDir = useRef<THREE.Vector3>(new THREE.Vector3(0, -1, 0));
     const currentLinVel = useRef<THREE.Vector3>(new THREE.Vector3());
+    // @ts-expect-error - Debug variable for future use
     const _currVelOnInputDir = useRef<THREE.Vector3>(new THREE.Vector3());
+    // @ts-expect-error - Debug variable for future use
     const _currVelOnOtherDir = useRef<THREE.Vector3>(new THREE.Vector3());
     const currentLinVelOnPlane = useRef<THREE.Vector3>(new THREE.Vector3());
     const isFalling = useRef<boolean>(false);
@@ -233,6 +237,7 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     const inputDirOnPlane = useRef<THREE.Vector3>(new THREE.Vector3());
     const movingDir = useRef<THREE.Vector3>(new THREE.Vector3());
     const deltaLinVel = useRef<THREE.Vector3>(new THREE.Vector3());
+    // @ts-expect-error - Debug variable for future use
     const _counterVel = useRef<THREE.Vector3>(new THREE.Vector3());
     const wantToMoveVel = useRef<THREE.Vector3>(new THREE.Vector3());
     const forwardState = useRef<boolean>(false);
@@ -1439,8 +1444,8 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
       const backward = backwardState.current || keys.backward;
       const leftward = leftwardState.current || keys.leftward;
       const rightward = rightwardState.current || keys.rightward;
-      const run = runState.current || keys.run || buttons.run;
-      const jump = jumpState.current || keys.jump || buttons.jump;
+      const run = runState.current || keys.run || buttons.run || false;
+      const jump = jumpState.current || keys.jump || buttons.jump || false;
 
       /**
        * Handle character movement input

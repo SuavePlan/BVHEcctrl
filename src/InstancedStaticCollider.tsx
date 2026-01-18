@@ -6,13 +6,12 @@
  */
 
 import { useThree } from "@react-three/fiber";
-import React, { useEffect, useRef, type ReactNode, forwardRef, type RefObject, useMemo } from "react";
+import React, { useEffect, useRef, type ReactNode, forwardRef, type RefObject } from "react";
 import * as THREE from "three";
 import {
   MeshBVHHelper,
   SAH,
   type SplitStrategy,
-  acceleratedRaycast,
   computeBoundsTree,
   disposeBoundsTree,
 } from "three-mesh-bvh";
@@ -96,9 +95,9 @@ const InstancedStaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
         cleanGeom.applyMatrix4(mesh.matrixWorld);
 
         // Create boundsTree and mesh from clean geometry
-        cleanGeom.computeBoundsTree = computeBoundsTree;
-        cleanGeom.disposeBoundsTree = disposeBoundsTree;
-        cleanGeom.computeBoundsTree(BVHOptions);
+        (cleanGeom as unknown as {computeBoundsTree: typeof computeBoundsTree; disposeBoundsTree: typeof disposeBoundsTree}).computeBoundsTree = computeBoundsTree;
+        (cleanGeom as unknown as {computeBoundsTree: typeof computeBoundsTree; disposeBoundsTree: typeof disposeBoundsTree}).disposeBoundsTree = disposeBoundsTree;
+        (cleanGeom as unknown as {computeBoundsTree: typeof computeBoundsTree}).computeBoundsTree(BVHOptions);
 
         // Create inteanced mergedMesh from cleanGeom
         mergedMesh.current = new THREE.InstancedMesh(cleanGeom, undefined, mesh.count);

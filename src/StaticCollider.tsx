@@ -6,7 +6,7 @@
  */
 
 import { useHelper } from "@react-three/drei";
-import React, { useEffect, useRef, type ReactNode, forwardRef, type RefObject, useImperativeHandle } from "react";
+import React, { useEffect, useRef, type ReactNode, forwardRef, useImperativeHandle } from "react";
 import * as THREE from "three";
 import {
   MeshBVHHelper,
@@ -17,7 +17,6 @@ import {
   computeBoundsTree,
   disposeBoundsTree,
 } from "three-mesh-bvh";
-import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { useEcctrlStore } from "./stores/useEcctrlStore";
 
 export interface StaticColliderProps extends Omit<React.ComponentProps<"group">, "ref"> {
@@ -115,9 +114,9 @@ const StaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
       const mergedGeometry = staticGenerator.generate();
 
       // Create boundsTree and mesh from static geometry
-      mergedGeometry.computeBoundsTree = computeBoundsTree;
-      mergedGeometry.disposeBoundsTree = disposeBoundsTree;
-      mergedGeometry.computeBoundsTree(BVHOptions);
+      (mergedGeometry as unknown as {computeBoundsTree: typeof computeBoundsTree; disposeBoundsTree: typeof disposeBoundsTree}).computeBoundsTree = computeBoundsTree;
+      (mergedGeometry as unknown as {computeBoundsTree: typeof computeBoundsTree; disposeBoundsTree: typeof disposeBoundsTree}).disposeBoundsTree = disposeBoundsTree;
+      (mergedGeometry as unknown as {computeBoundsTree: typeof computeBoundsTree}).computeBoundsTree(BVHOptions);
       mergedMesh.current = new THREE.Mesh(mergedGeometry);
       mergedMesh.current.raycast = acceleratedRaycast;
       // Preset merged mesh user data
@@ -174,7 +173,8 @@ const StaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
     /**
      * Update BVH debug helper
      */
-    useHelper(debug && mergedMesh, MeshBVHHelper);
+    // @ts-expect-error - MeshBVHHelper type incompatibility with drei's useHelper
+    useHelper(debug && (mergedMesh as React.MutableRefObject<THREE.Object3D>), MeshBVHHelper);
 
     return (
       <group ref={colliderRef} {...props} dispose={null}>

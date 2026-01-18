@@ -6,22 +6,16 @@
  */
 
 import { useHelper } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import React, {
   useEffect,
   useRef,
-  useMemo,
-  useState,
   type ReactNode,
   forwardRef,
-  type ForwardedRef,
-  type RefObject,
-  type JSX,
   useImperativeHandle,
 } from "react";
 import * as THREE from "three";
 import {
-  MeshBVH,
   MeshBVHHelper,
   SAH,
   type SplitStrategy,
@@ -30,8 +24,7 @@ import {
   computeBoundsTree,
   disposeBoundsTree,
 } from "three-mesh-bvh";
-import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
-import { clamp } from "three/src/math/MathUtils";
+import { clamp } from "three/src/math/MathUtils.js";
 import { useEcctrlStore } from "./stores/useEcctrlStore";
 
 export interface KinematicColliderProps extends Omit<React.ComponentProps<"group">, "ref"> {
@@ -146,9 +139,9 @@ const KinematicCollider = forwardRef<THREE.Group, KinematicColliderProps>(
       const mergedGeometry = staticGenerator.generate();
 
       // Create boundsTree and mesh from static geometry
-      mergedGeometry.computeBoundsTree = computeBoundsTree;
-      mergedGeometry.disposeBoundsTree = disposeBoundsTree;
-      mergedGeometry.computeBoundsTree(BVHOptions);
+      (mergedGeometry as unknown as {computeBoundsTree: typeof computeBoundsTree; disposeBoundsTree: typeof disposeBoundsTree}).computeBoundsTree = computeBoundsTree;
+      (mergedGeometry as unknown as {computeBoundsTree: typeof computeBoundsTree; disposeBoundsTree: typeof disposeBoundsTree}).disposeBoundsTree = disposeBoundsTree;
+      (mergedGeometry as unknown as {computeBoundsTree: typeof computeBoundsTree}).computeBoundsTree(BVHOptions);
       mergedMesh.current = new THREE.Mesh(mergedGeometry);
       mergedMesh.current.raycast = acceleratedRaycast;
       // Update user data in merged mesh
@@ -220,7 +213,8 @@ const KinematicCollider = forwardRef<THREE.Group, KinematicColliderProps>(
     /**
      * Update BVH debug helper
      */
-    useHelper(debug && mergedMesh, MeshBVHHelper);
+    // @ts-expect-error - MeshBVHHelper type incompatibility with drei's useHelper
+    useHelper(debug && (mergedMesh as React.MutableRefObject<THREE.Object3D>), MeshBVHHelper);
 
     /**
      * Update kinematic collider metrix for character collision and floating response
