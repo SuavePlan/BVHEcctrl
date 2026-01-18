@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import * as path from "node:path";
 import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const isCodeSandbox =
   "SANDBOX_URL" in process.env || "CODESANDBOX_HOST" in process.env;
@@ -18,8 +19,15 @@ const dev = defineConfig({
 
 const build = defineConfig({
   publicDir: false,
+  plugins: [
+    visualizer({
+      filename: "dist/stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
   build: {
-    minify: false,
+    minify: "esbuild",
     outDir: "dist",
     sourcemap: true,
     target: "es2018",
@@ -32,6 +40,7 @@ const build = defineConfig({
       external: (id) => !id.startsWith(".") && !path.isAbsolute(id),
       output: {
         sourcemapExcludeSources: true,
+        preserveModules: false,
       },
     },
   },

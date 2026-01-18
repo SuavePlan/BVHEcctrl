@@ -9,12 +9,26 @@
     "verbatimModuleSyntax": true,
     "strict": true,
     "emitDeclarationOnly": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strictNullChecks": true,
-    "jsx": "react",
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "jsx": "react-jsx",
     "declaration": true,
-    "lib": ["es2022", "dom"]
+    "declarationMap": true,
+    "sourceMap": true,
+    "lib": ["es2022", "dom"],
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "example"]
+  "exclude": ["node_modules", "dist", "example", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
 }
