@@ -81,10 +81,10 @@ const KinematicCollider = forwardRef<THREE.Group, KinematicColliderProps>(
     /**
      * Initialize setups
      */
-    const mergedMesh = useRef<THREE.Mesh>(null!);
+    const mergedMesh = useRef<THREE.Mesh | null>(null);
     // const colliderRef = (ref as RefObject<THREE.Group>) ?? useRef<THREE.Group | null>(null);
-    const colliderRef = useRef<THREE.Group>(null!);
-    useImperativeHandle(ref, () => colliderRef.current!, []);
+    const colliderRef = useRef<THREE.Group | null>(null);
+    useImperativeHandle(ref, () => colliderRef.current as THREE.Group, []);
 
     /**
      * Kinematic platform preset
@@ -180,7 +180,9 @@ const KinematicCollider = forwardRef<THREE.Group, KinematicColliderProps>(
           mergedMesh.current.geometry.disposeBoundsTree?.();
           mergedMesh.current.geometry.dispose();
           if (Array.isArray(mergedMesh.current.material)) {
-            mergedMesh.current.material.forEach((mat) => mat.dispose());
+            for (const mat of mergedMesh.current.material) {
+              mat.dispose();
+            }
           } else {
             mergedMesh.current.material.dispose();
           }
@@ -190,13 +192,15 @@ const KinematicCollider = forwardRef<THREE.Group, KinematicColliderProps>(
           m.raycast = THREE.Mesh.prototype.raycast;
           m.geometry.dispose();
           if (Array.isArray(m.material)) {
-            m.material.forEach((mat) => mat.dispose());
+            for (const mat of m.material) {
+              mat.dispose();
+            }
           } else {
             m.material.dispose();
           }
         }
       };
-    }, []);
+    }, [BVHOptions, bvhName, active, restitution, friction, excludeFloatHit, excludeCollisionCheck]);
 
     /**
      * Update merged mesh properties and user data
@@ -221,7 +225,7 @@ const KinematicCollider = forwardRef<THREE.Group, KinematicColliderProps>(
     /**
      * Update kinematic collider metrix for character collision and floating response
      */
-    useFrame((state, delta) => {
+    useFrame((_state, delta) => {
       if (!mergedMesh.current || !colliderRef.current || !active) return;
 
       // Save previous transform

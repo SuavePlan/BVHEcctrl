@@ -33,6 +33,7 @@
         "noUnsafeOptionalChaining": "error",
         "noUnusedLabels": "error",
         "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "warn",
         "useIsNan": "error",
         "useValidForDirection": "error",
         "useYield": "error"
@@ -43,6 +44,7 @@
       },
       "style": {
         "noCommaOperator": "error",
+        "noNonNullAssertion": "warn",
         "noVar": "error",
         "useConst": "error",
         "useTemplate": "warn"

@@ -112,7 +112,7 @@ const Joystick = (props: JoystickProps) => {
       // Update the joystick state in the store
       setJoystick(dx / joystickMaxRadius, -dy / joystickMaxRadius);
     },
-    [setJoystick]
+    [setJoystick, joystickMaxRadius]
   );
 
   /**
@@ -125,7 +125,7 @@ const Joystick = (props: JoystickProps) => {
   }, [resetJoystick]);
 
   // Reset joystick when this component unmounts
-  useEffect(() => () => resetJoystick(), []);
+  useEffect(() => () => resetJoystick(), [resetJoystick]);
 
   return (
     <div

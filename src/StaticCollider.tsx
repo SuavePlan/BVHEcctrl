@@ -65,10 +65,10 @@ const StaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
     /**
      * Initialize setups
      */
-    const mergedMesh = useRef<THREE.Mesh>(null!);
+    const mergedMesh = useRef<THREE.Mesh | null>(null);
     // const colliderRef = (ref as RefObject<THREE.Group>) ?? useRef<THREE.Group | null>(null);
-    const colliderRef = useRef<THREE.Group>(null!);
-    useImperativeHandle(ref, () => colliderRef.current!, []);
+    const colliderRef = useRef<THREE.Group | null>(null);
+    useImperativeHandle(ref, () => colliderRef.current as THREE.Group, []);
 
     /**
      * Generate merged static geometry and BVH tree for collision detection
@@ -135,7 +135,9 @@ const StaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
           mergedMesh.current.geometry.disposeBoundsTree?.();
           mergedMesh.current.geometry.dispose();
           if (Array.isArray(mergedMesh.current.material)) {
-            mergedMesh.current.material.forEach((mat) => mat.dispose());
+            for (const mat of mergedMesh.current.material) {
+              mat.dispose();
+            }
           } else {
             mergedMesh.current.material.dispose();
           }
@@ -145,13 +147,15 @@ const StaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
           m.raycast = THREE.Mesh.prototype.raycast;
           m.geometry.dispose();
           if (Array.isArray(m.material)) {
-            m.material.forEach((mat) => mat.dispose());
+            for (const mat of m.material) {
+              mat.dispose();
+            }
           } else {
             m.material.dispose();
           }
         }
       };
-    }, []);
+    }, [BVHOptions, bvhName, restitution, friction, excludeFloatHit, excludeCollisionCheck]);
 
     /**
      * Update merged mesh properties and user data

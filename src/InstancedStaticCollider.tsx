@@ -61,7 +61,7 @@ const InstancedStaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
     /**
      * Initialize setups
      */
-    const { scene, gl } = useThree();
+    const { scene } = useThree();
     const mergedMesh = useRef<THREE.InstancedMesh | null>(null);
     const bvhHelper = useRef<MeshBVHHelper | null>(null);
     const colliderRef = (ref as RefObject<THREE.Group>) ?? useRef<THREE.Group | null>(null);
@@ -125,7 +125,9 @@ const InstancedStaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
           mergedMesh.current.geometry.disposeBoundsTree?.();
           mergedMesh.current.geometry.dispose();
           if (Array.isArray(mergedMesh.current.material)) {
-            mergedMesh.current.material.forEach((mat) => mat.dispose());
+            for (const mat of mergedMesh.current.material) {
+              mat.dispose();
+            }
           } else {
             mergedMesh.current.material.dispose();
           }
@@ -133,11 +135,13 @@ const InstancedStaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
         }
         if (bvhHelper.current) {
           scene.remove(bvhHelper.current);
-          (bvhHelper.current as any).dispose?.();
+          if ("dispose" in bvhHelper.current && typeof bvhHelper.current.dispose === "function") {
+            bvhHelper.current.dispose();
+          }
           bvhHelper.current = null;
         }
       };
-    }, []);
+    }, [BVHOptions, restitution, friction, excludeFloatHit, excludeCollisionCheck, scene]);
 
     /**
      * Update merged mesh properties and user data
@@ -167,7 +171,7 @@ const InstancedStaticCollider = forwardRef<THREE.Group, StaticColliderProps>(
           scene.add(bvhHelper.current);
         }
       }
-    }, [debug]);
+    }, [debug, scene]);
 
     return (
       <group ref={colliderRef} {...props} dispose={null}>

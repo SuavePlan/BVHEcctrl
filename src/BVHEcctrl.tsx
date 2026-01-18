@@ -134,10 +134,10 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     const characterColliderRef = useRef<THREE.Mesh | null>(null);
     const characterModelRef = useRef<THREE.Group | null>(null);
     // Debug indicators meshes
-    const debugBbox = useRef<THREE.Mesh | null>(null);
+    const _debugBbox = useRef<THREE.Mesh | null>(null);
     const debugLineStart = useRef<THREE.Mesh | null>(null);
     const debugLineEnd = useRef<THREE.Mesh | null>(null);
-    const debugRaySensorBbox = useRef<THREE.Mesh | null>(null);
+    const _debugRaySensorBbox = useRef<THREE.Mesh | null>(null);
     const debugRaySensorStart = useRef<THREE.Mesh | null>(null);
     const debugRaySensorEnd = useRef<THREE.Mesh | null>(null);
     const standPointRef = useRef<THREE.Mesh | null>(null);
@@ -160,7 +160,7 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     /**
      * keyboard controls setup
      */
-    const [subscribeKeys, getKeys] = isInsideKeyboardControls ? useKeyboardControls() : [null];
+    const [_subscribeKeys, getKeys] = isInsideKeyboardControls ? useKeyboardControls() : [null];
     const presetKeys = { forward: false, backward: false, leftward: false, rightward: false, jump: false, run: false };
 
     /**
@@ -202,8 +202,8 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     const localUpAxis = useRef<THREE.Vector3>(new THREE.Vector3());
     const gravityDir = useRef<THREE.Vector3>(new THREE.Vector3(0, -1, 0));
     const currentLinVel = useRef<THREE.Vector3>(new THREE.Vector3());
-    const currVelOnInputDir = useRef<THREE.Vector3>(new THREE.Vector3());
-    const currVelOnOtherDir = useRef<THREE.Vector3>(new THREE.Vector3());
+    const _currVelOnInputDir = useRef<THREE.Vector3>(new THREE.Vector3());
+    const _currVelOnOtherDir = useRef<THREE.Vector3>(new THREE.Vector3());
     const currentLinVelOnPlane = useRef<THREE.Vector3>(new THREE.Vector3());
     const isFalling = useRef<boolean>(false);
 
@@ -233,7 +233,7 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
     const inputDirOnPlane = useRef<THREE.Vector3>(new THREE.Vector3());
     const movingDir = useRef<THREE.Vector3>(new THREE.Vector3());
     const deltaLinVel = useRef<THREE.Vector3>(new THREE.Vector3());
-    const counterVel = useRef<THREE.Vector3>(new THREE.Vector3());
+    const _counterVel = useRef<THREE.Vector3>(new THREE.Vector3());
     const wantToMoveVel = useRef<THREE.Vector3>(new THREE.Vector3());
     const forwardState = useRef<boolean>(false);
     const backwardState = useRef<boolean>(false);
@@ -1322,10 +1322,9 @@ const BVHEcctrl = forwardRef<BVHEcctrlApi, EcctrlProps>(
         return run ? "RUN" : "WALK";
       }
       // In the air condition
-      else {
-        if (prevIsOnGround.current && jump) return "JUMP_START";
-        return isFalling.current ? "JUMP_FALL" : "JUMP_IDLE";
-      }
+
+      if (prevIsOnGround.current && jump) return "JUMP_START";
+      return isFalling.current ? "JUMP_FALL" : "JUMP_IDLE";
     }, []);
     const updateCharacterStatus = useCallback((run: boolean, jump: boolean) => {
       // Update character control status

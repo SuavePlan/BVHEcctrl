@@ -78,7 +78,7 @@ const VirtualButton = (props: VirtualButtonProps) => {
         capRef.current.style.opacity = "0.5";
       }
     },
-    [props.id]
+    [props.id, setButtonActive]
   );
 
   /**
@@ -90,10 +90,10 @@ const VirtualButton = (props: VirtualButtonProps) => {
       capRef.current.style.transform = "translate(-50%, -50%) scale(1)";
       capRef.current.style.opacity = "0.8";
     }
-  }, [props.id]);
+  }, [props.id, setButtonActive]);
 
   // Reset all buttons when this component unmounts
-  useEffect(() => () => resetAllButtons(), []);
+  useEffect(() => () => resetAllButtons(), [resetAllButtons]);
 
   return (
     <div
