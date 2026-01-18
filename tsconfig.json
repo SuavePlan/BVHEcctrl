@@ -27,7 +27,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "lib": ["es2022", "dom"],
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "example", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
