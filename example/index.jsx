@@ -1,12 +1,12 @@
 import "./style.css";
-import * as THREE from "three/webgpu";
-import ReactDOM from "react-dom/client";
+import { Bvh } from "@react-three/drei";
 import { Canvas, extend } from "@react-three/fiber";
-import Experience from "./Experience";
 import { Leva } from "leva";
 import { Suspense, useEffect, useState } from "react";
-import { Bvh } from "@react-three/drei";
+import ReactDOM from "react-dom/client";
+import * as THREE from "three/webgpu";
 import { Joystick, VirtualButton } from "../src/index";
+import Experience from "./Experience";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
@@ -26,16 +26,8 @@ const JoystickControls = () => {
       {isTouchScreen && (
         <>
           <Joystick />
-          <VirtualButton
-            id="run"
-            label="RUN"
-            buttonWrapperStyle={{ right: "100px", bottom: "40px" }}
-          />
-          <VirtualButton
-            id="jump"
-            label="JUMP"
-            buttonWrapperStyle={{ right: "40px", bottom: "100px" }}
-          />
+          <VirtualButton id="run" label="RUN" buttonWrapperStyle={{ right: "100px", bottom: "40px" }} />
+          <VirtualButton id="jump" label="JUMP" buttonWrapperStyle={{ right: "40px", bottom: "100px" }} />
         </>
       )}
     </>

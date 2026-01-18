@@ -110,14 +110,6 @@
     }
   },
   "files": {
-    "ignore": [
-      "node_modules",
-      "dist",
-      "build",
-      "coverage",
-      ".git",
-      "*.min.js",
-      "public"
-    ]
+    "ignore": ["node_modules", "dist", "build", "coverage", ".git", "*.min.js", "public", "example"]
   }
 }

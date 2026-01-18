@@ -7,12 +7,7 @@ export default function LargePlatform(props) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={props.model.nodes["4X4Platform"].geometry}
-        material={material001}
-      />
+      <mesh castShadow receiveShadow geometry={props.model.nodes["4X4Platform"].geometry} material={material001} />
     </group>
   );
 }

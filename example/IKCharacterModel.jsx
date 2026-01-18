@@ -1,7 +1,7 @@
-import * as THREE from "three";
 import { TransformControls, useGLTF } from "@react-three/drei";
-import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 import { CCDIKSolver } from "three/addons/animation/CCDIKSolver.js";
 // import { TransformControls } from "three/addons/controls/TransformControls.js";
 
@@ -54,29 +54,13 @@ export default function IKCharacterModel(props) {
         links: [
           {
             index: 10,
-            rotationMin: new THREE.Vector3(
-              -0.7061575303622305,
-              -0.33937719547011963,
-              -1.7997365542760573
-            ),
-            rotationMax: new THREE.Vector3(
-              -0.7061575303622305,
-              -0.33937719547011963,
-              -1.7997365542760573
-            ),
+            rotationMin: new THREE.Vector3(-0.7061575303622305, -0.33937719547011963, -1.7997365542760573),
+            rotationMax: new THREE.Vector3(-0.7061575303622305, -0.33937719547011963, -1.7997365542760573),
           },
           {
             index: 9,
-            rotationMin: new THREE.Vector3(
-              -0.47618080730088014,
-              0.665500219808838,
-              1.8443565858086026
-            ),
-            rotationMax: new THREE.Vector3(
-              -0.47618080730088014,
-              0.665500219808838,
-              1.8443565858086026
-            ),
+            rotationMin: new THREE.Vector3(-0.47618080730088014, 0.665500219808838, 1.8443565858086026),
+            rotationMax: new THREE.Vector3(-0.47618080730088014, 0.665500219808838, 1.8443565858086026),
           },
           {
             index: 8,
@@ -110,13 +94,7 @@ export default function IKCharacterModel(props) {
   });
 
   return (
-    <group
-      ref={modelRef}
-      {...props}
-      dispose={null}
-      position={[0, -0.7, 0]}
-      scale={0.7}
-    >
+    <group ref={modelRef} {...props} dispose={null} position={[0, -0.7, 0]} scale={0.7}>
       <skinnedMesh
         castShadow
         receiveShadow

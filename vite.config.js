@@ -1,10 +1,9 @@
-import { defineConfig } from "vite";
 import * as path from "node:path";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig } from "vite";
 
-const isCodeSandbox =
-  "SANDBOX_URL" in process.env || "CODESANDBOX_HOST" in process.env;
+const isCodeSandbox = "SANDBOX_URL" in process.env || "CODESANDBOX_HOST" in process.env;
 
 const dev = defineConfig({
   plugins: [react()],

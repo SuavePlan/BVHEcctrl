@@ -6,12 +6,12 @@ Source: https://sketchfab.com/3d-models/fantasy-game-inn-192bf30a7e28425ab385aef
 Title: Fantasy Game Inn
 */
 
-import * as THREE from "three";
 import { Clone, Helper, Merged, useGLTF, useHelper } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
+import * as THREE from "three";
 import { MeshBVHHelper } from "three-mesh-bvh";
 import { useEcctrlStore } from "../src/stores/useEcctrlStore";
-import { useThree } from "@react-three/fiber";
 
 export default function InstancedMap(props) {
   // Load map model
@@ -108,12 +108,7 @@ export default function InstancedMap(props) {
         ]}
       /> */}
 
-      <instancedMesh
-        ref={instancedMeshRef}
-        args={[geo, mat, count]}
-        position={[2, -1, 0]}
-        scale={0.5}
-      />
+      <instancedMesh ref={instancedMeshRef} args={[geo, mat, count]} position={[2, -1, 0]} scale={0.5} />
     </group>
   );
 }

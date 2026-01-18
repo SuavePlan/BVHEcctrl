@@ -13,9 +13,7 @@ export interface AnimationStoreState {
   setAnimationStatus: (status: CharacterAnimationStatus) => void;
 }
 
-export const useAnimationStore = /* @__PURE__ */ create<AnimationStoreState>(
-  (set) => ({
-    animationStatus: "IDLE",
-    setAnimationStatus: (status) => set({ animationStatus: status }),
-  })
-);
+export const useAnimationStore = /* @__PURE__ */ create<AnimationStoreState>((set) => ({
+  animationStatus: "IDLE",
+  setAnimationStatus: (status) => set({ animationStatus: status }),
+}));

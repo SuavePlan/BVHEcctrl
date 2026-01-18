@@ -49,12 +49,5 @@ export type MovementInput = {
   run?: boolean;
   jump?: boolean;
 };
-export type CharacterAnimationStatus =
-  | "IDLE"
-  | "WALK"
-  | "RUN"
-  | "JUMP_START"
-  | "JUMP_IDLE"
-  | "JUMP_FALL"
-  | "JUMP_LAND";
+export type CharacterAnimationStatus = "IDLE" | "WALK" | "RUN" | "JUMP_START" | "JUMP_IDLE" | "JUMP_FALL" | "JUMP_LAND";
 export type FloatCheckType = "RAYCAST" | "SHAPECAST" | "BOTH";

@@ -1,9 +1,9 @@
-import * as THREE from "three";
 import { Clone, Helper, Merged, useGLTF, useHelper } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
+import * as THREE from "three";
 import { MeshBVHHelper } from "three-mesh-bvh";
 import { useEcctrlStore } from "../src/stores/useEcctrlStore";
-import { useThree } from "@react-three/fiber";
 
 export default function InstancedBuild(props) {
   // Load map model
@@ -20,7 +20,6 @@ export default function InstancedBuild(props) {
   const count = 1000;
   const scale = 1;
   useEffect(() => {
-
     for (let i = 0; i < count; i++) {
       temp.position.set(0, -4 * i, 0);
       temp.rotation.set(0, 0, 0); //-Math.PI / 2
@@ -39,11 +38,7 @@ export default function InstancedBuild(props) {
         castShadow
         receiveShadow
         ref={instancedMeshRef}
-        args={[
-          infinityBuildModel.nodes.Combine003.geometry,
-          infinityBuildModel.materials.GridTexture,
-          count,
-        ]}
+        args={[infinityBuildModel.nodes.Combine003.geometry, infinityBuildModel.materials.GridTexture, count]}
       />
     </group>
   );

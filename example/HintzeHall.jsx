@@ -1,6 +1,6 @@
-import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { useEffect } from "react";
+import * as THREE from "three";
 
 export default function HintzeHall(props) {
   /**

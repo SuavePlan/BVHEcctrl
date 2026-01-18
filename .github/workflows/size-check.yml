@@ -1,0 +1,51 @@
+name: Bundle Size Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  size-check:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check bundle size
+        run: |
+          BUNDLE_SIZE=$(stat -f%z "dist/index.js" 2>/dev/null || stat -c%s "dist/index.js")
+          BUNDLE_SIZE_KB=$((BUNDLE_SIZE / 1024))
+          echo "Bundle size: ${BUNDLE_SIZE_KB} KB"
+
+          if [ $BUNDLE_SIZE_KB -gt 50 ]; then
+            echo "::warning::Bundle size (${BUNDLE_SIZE_KB} KB) exceeds 50 KB threshold"
+          fi
+
+      - name: Comment PR with bundle size
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const bundleSize = fs.statSync('dist/index.js').size;
+            const bundleSizeKB = (bundleSize / 1024).toFixed(2);
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              body: `📦 Bundle size: **${bundleSizeKB} KB**`
+            });

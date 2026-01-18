@@ -27,7 +27,6 @@ export const useJoystickStore = /* @__PURE__ */ create(
         joystickX: x,
         joystickY: y,
       }),
-    resetJoystick: () =>
-      set({ joystickActive: false, joystickX: 0, joystickY: 0 }),
+    resetJoystick: () => set({ joystickActive: false, joystickX: 0, joystickY: 0 }),
   }))
 );

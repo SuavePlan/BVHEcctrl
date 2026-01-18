@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-import * as THREE from "three";
+import type * as THREE from "three";
 import { create } from "zustand";
 
 export interface StoreState {
@@ -32,9 +32,7 @@ export const useEcctrlStore = /* @__PURE__ */ create<StoreState>((set) => {
       }),
     removeColliderMesh: (meshToRemove: THREE.Mesh) =>
       set((state) => ({
-        colliderMeshesArray: state.colliderMeshesArray.filter(
-          (mesh) => mesh !== meshToRemove
-        ),
+        colliderMeshesArray: state.colliderMeshesArray.filter((mesh) => mesh !== meshToRemove),
       })),
   };
 });

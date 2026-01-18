@@ -1,9 +1,9 @@
-import * as THREE from "three";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
-import { useAnimationStore } from "../src";
-import { CCDIKHelper, CCDIKSolver } from "three/examples/jsm/Addons.js";
+import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
+import { CCDIKHelper, CCDIKSolver } from "three/examples/jsm/Addons.js";
+import { useAnimationStore } from "../src";
 
 export default function AnimatedCharacterModel(props) {
   const slowMotion = props.slowMotion ?? 1;
@@ -47,18 +47,11 @@ export default function AnimatedCharacterModel(props) {
     // Only cross fade if switching to a new animation clip
     if (nextActionName !== prevActionName && canPlayNext) {
       // Special setup for one-time animations (jump start, jump land, etc.)
-      if (
-        nextActionName === statusToActionMap.JUMP_START ||
-        nextActionName === statusToActionMap.JUMP_LAND
-      ) {
+      if (nextActionName === statusToActionMap.JUMP_START || nextActionName === statusToActionMap.JUMP_LAND) {
         // Set canPlayNext to false to prevent immediate re-triggering
         setCanPlayNext(false);
         nextAction.timeScale = 1.6;
-        nextAction
-          .reset()
-          .crossFadeFrom(actions[prevActionName], 0.1)
-          .setLoop(THREE.LoopOnce, 1)
-          .play();
+        nextAction.reset().crossFadeFrom(actions[prevActionName], 0.1).setLoop(THREE.LoopOnce, 1).play();
         nextAction.clampWhenFinished = true;
       } else {
         // For all other animations, allow immediate re-triggering
@@ -103,8 +96,7 @@ export default function AnimatedCharacterModel(props) {
     const onFinished = (e) => {
       if (
         !canPlayNext &&
-        (e.action._clip.name === statusToActionMap.JUMP_START ||
-          e.action._clip.name === statusToActionMap.JUMP_LAND)
+        (e.action._clip.name === statusToActionMap.JUMP_START || e.action._clip.name === statusToActionMap.JUMP_LAND)
       ) {
         setCanPlayNext(true);
       }
