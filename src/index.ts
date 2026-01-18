@@ -39,6 +39,23 @@ export type { ButtonStoreState } from "./stores/useButtonStore";
 export { useAnimationStore } from "./stores/useAnimationStore";
 export type { AnimationStoreState } from "./stores/useAnimationStore";
 
+// Export configuration presets
+export { PRESETS, mergePreset } from "./presets";
+export {
+  FPS_SHOOTER,
+  ACTION_ADVENTURE,
+  PLATFORMER,
+  RPG,
+  SURVIVAL_HORROR,
+  RACING,
+  STEALTH,
+} from "./presets";
+
+// Export utilities
+export { usePerformanceMonitor, getMemoryStats, formatBytes } from "./utils/performanceMonitor";
+export type { PerformanceStats, PerformanceMonitorOptions } from "./utils/performanceMonitor";
+export * from "./utils/physics";
+
 // Export types for movement input and character animation status
 export type MovementInput = {
   forward?: boolean;
