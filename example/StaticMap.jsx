@@ -10,24 +10,9 @@ export default function StaticMap(props) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={props.model.nodes.Floor002.geometry}
-        material={material001}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={props.model.nodes.Floor003.geometry}
-        material={material002}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={props.model.nodes.SlopeStair002.geometry}
-        material={material001}
-      />
+      <mesh castShadow receiveShadow geometry={props.model.nodes.Floor002.geometry} material={material001} />
+      <mesh castShadow receiveShadow geometry={props.model.nodes.Floor003.geometry} material={material002} />
+      <mesh castShadow receiveShadow geometry={props.model.nodes.SlopeStair002.geometry} material={material001} />
       <mesh
         castShadow
         receiveShadow

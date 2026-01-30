@@ -7,12 +7,7 @@ export default function SlideMap(props) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={props.model.nodes.Slide002.geometry}
-        material={material001}
-      />
+      <mesh castShadow receiveShadow geometry={props.model.nodes.Slide002.geometry} material={material001} />
     </group>
   );
 }

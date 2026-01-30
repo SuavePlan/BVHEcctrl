@@ -115,36 +115,37 @@ useFrame(() => {
 
 ## 🧱 BVHEcctrl Props
 
-| Prop                         | Type                               | Default            | Description                                                   |
-| ---------------------------- | ---------------------------------- | ------------------ | ------------------------------------------------------------- |
-| `debug`                      | `boolean`                          | `false`            | Enables visual debugging.                                     |
-| `colliderCapsuleArgs`        | `[number, number, number, number]` | `[0.3, 0.6, 4, 8]` | Capsule shape: [radius, height, capSegments, radialSegments]. |
-| `paused`                     | `boolean`                          | `false`            | Freezes character physics and collision response.             |
-| `delay`                      | `number`                           | `1.5`              | Physics delay after initialization (in seconds).              |
-| `gravity`                    | `number`                           | `9.81`             | World gravity.                                                |
-| `fallGravityFactor`          | `number`                           | `4`                | Multiplier to increase falling speed.                         |
-| `maxFallSpeed`               | `number`                           | `50`               | Maximum fall velocity cap.                                    |
-| `mass`                       | `number`                           | `1`                | Virtual mass, affects float behavior.                         |
-| `sleepTimeout`               | `number`                           | `10`               | Time before character enters sleep state when idle.           |
-| `slowMotionFactor`           | `number`                           | `1`                | Global time scaling (e.g., `0.5` = half-speed).               |
-| `turnSpeed`                  | `number`                           | `15`               | Turn speed when changing direction.                           |
-| `maxWalkSpeed`               | `number`                           | `3`                | Max speed when walking.                                       |
-| `maxRunSpeed`                | `number`                           | `5`                | Max speed when running.                                       |
-| `acceleration`               | `number`                           | `26`               | Speed increase per second.                                    |
-| `deceleration`               | `number`                           | `15`               | Speed decrease when input is released.                        |
-| `counterVelFactor`           | `number`                           | `1.5`              | Extra velocity when changing direction.                       |
-| `airDragFactor`              | `number`                           | `0.3`              | Simulated drag while in air.                                  |
-| `jumpVel`                    | `number`                           | `5`                | Upward velocity when jumping.                                 |
-| `maxSlope`                   | `number`                           | `1`                | Max walkable surface slope (in radians).                      |
-| `floatHeight`                | `number`                           | `0.2`              | Desired float height above ground.                            |
-| `floatPullBackHeight`        | `number`                           | `0.25`             | Additional distance below ground used to pull character down. |
-| `floatSensorRadius`          | `number`                           | `0.12`             | Radius of the sensor used to sense the ground.                |
-| `floatSpringK`               | `number`                           | `1600`             | Spring constant for floating.                                 |
-| `floatDampingC`              | `number`                           | `60`               | Damping factor for float spring (prevents oscillation).       |
-| `collisionCheckIteration`    | `number`                           | `3`                | Number of collision check per frame.                          |
-| `collisionPushBackVelocity`  | `number`                           | `3`                | Extra velocity applied to resolve penetration.                |
-| `collisionPushBackDamping`   | `number`                           | `0.1`              | Damping applied to the pushback force.                        |
-| `collisionPushBackThreshold` | `number`                           | `0.001`            | Minimum depth before pushback activates.                      |
+| Prop                         | Type                                     | Default            | Description                                                   |
+| ---------------------------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------- |
+| `debug`                      | `boolean`                                | `false`            | Enables visual debugging.                                     |
+| `colliderCapsuleArgs`        | `[number, number, number, number]`       | `[0.3, 0.6, 4, 8]` | Capsule shape: [radius, height, capSegments, radialSegments]. |
+| `paused`                     | `boolean`                                | `false`            | Freezes character physics and collision response.             |
+| `delay`                      | `number`                                 | `1.5`              | Physics delay after initialization (in seconds).              |
+| `gravity`                    | `number`                                 | `9.81`             | World gravity.                                                |
+| `fallGravityFactor`          | `number`                                 | `4`                | Multiplier to increase falling speed.                         |
+| `maxFallSpeed`               | `number`                                 | `50`               | Maximum fall velocity cap.                                    |
+| `mass`                       | `number`                                 | `1`                | Virtual mass, affects float behavior.                         |
+| `sleepTimeout`               | `number`                                 | `10`               | Time before character enters sleep state when idle.           |
+| `slowMotionFactor`           | `number`                                 | `1`                | Global time scaling (e.g., `0.5` = half-speed).               |
+| `turnSpeed`                  | `number`                                 | `15`               | Turn speed when changing direction.                           |
+| `maxWalkSpeed`               | `number`                                 | `3`                | Max speed when walking.                                       |
+| `maxRunSpeed`                | `number`                                 | `5`                | Max speed when running.                                       |
+| `acceleration`               | `number`                                 | `30`               | Speed increase per second.                                    |
+| `deceleration`               | `number`                                 | `20`               | Speed decrease when input is released.                        |
+| `counterAccFactor`           | `number`                                 | `0.5`              | Extra acceleration multiplier when changing direction.        |
+| `airDragFactor`              | `number`                                 | `0.3`              | Simulated drag while in air.                                  |
+| `jumpVel`                    | `number`                                 | `5`                | Upward velocity when jumping.                                 |
+| `floatCheckType`             | `"RAYCAST"` \| `"SHAPECAST"` \| `"BOTH"` | `BOTH`             | Able to switch between different float check type.            |
+| `maxSlope`                   | `number`                                 | `1`                | Max walkable surface slope (in radians).                      |
+| `floatHeight`                | `number`                                 | `0.2`              | Desired float height above ground.                            |
+| `floatPullBackHeight`        | `number`                                 | `0.25`             | Additional distance below ground used to pull character down. |
+| `floatSensorRadius`          | `number`                                 | `0.12`             | Radius of the sensor used to sense the ground.                |
+| `floatSpringK`               | `number`                                 | `600`              | Spring constant for floating.                                 |
+| `floatDampingC`              | `number`                                 | `28`               | Damping factor for float spring (prevents oscillation).       |
+| `collisionCheckIteration`    | `number`                                 | `3`                | Number of collision check per frame.                          |
+| `collisionPushBackVelocity`  | `number`                                 | `3`                | Extra velocity applied to resolve penetration.                |
+| `collisionPushBackDamping`   | `number`                                 | `0.1`              | Damping applied to the pushback force.                        |
+| `collisionPushBackThreshold` | `number`                                 | `0.005`            | Minimum depth before pushback activates.                      |
 
 ## 🧱 Collider Component Props
 
@@ -171,6 +172,58 @@ Default BVHOptions:
 }
 ```
 
+## 🎮 Virtual Joystick and Button Integration
+
+BVHEcctrl provides mobile-friendly UI components to control character movement and actions using touch input. Simply import and place `<Joystick />` and `<VirtualButton />` outside the `<Canvas>` component:
+
+```js
+import { Joystick, VirtualButton } from "bvhecctrl";
+
+<Joystick />
+
+<VirtualButton
+  id="run"
+  label="RUN"
+  buttonWrapperStyle={{ right: "100px", bottom: "40px" }}
+/>
+
+<VirtualButton
+  id="jump"
+  label="JUMP"
+  buttonWrapperStyle={{ right: "40px", bottom: "100px" }}
+/>
+```
+
+You can define additional <VirtualButton /> components beyond the built-in "run" and "jump" ones, such as:
+
+```js
+import { VirtualButton, useButtonStore } from "bvhecctrl";
+
+<VirtualButton id="dance" />;
+
+// Later access it in your logic
+const { buttons } = useButtonStore.getState();
+console.log(buttons.dance); // true or false
+```
+
+## 🧱 Joystick Component Props
+
+| Prop                   | Type                  | Default | Description                       |
+| ---------------------- | --------------------- | ------- | --------------------------------- |
+| `joystickMaxRadius`    | `number`              | `50`    | Maximum drag radius.              |
+| `joystickWrapperStyle` | `React.CSSProperties` | `-`     | CSS style for the outer wrapper.  |
+| `joystickBaseStyle`    | `React.CSSProperties` | `-`     | CSS style for the joystick base.  |
+| `joystickKnobStyle`    | `React.CSSProperties` | `-`     | CSS style for the draggable knob. |
+
+## 🧱 VirtualButton Component Props
+
+| Prop                 | Type                  | Default | Description                                               |
+| -------------------- | --------------------- | ------- | --------------------------------------------------------- |
+| `id`                 | `string`              | `-`     | Unique ID to map to actions ("run" & "jump" are handled). |
+| `label`              | `string`              | `-`     | Optional label text on the button.                        |
+| `buttonWrapperStyle` | `React.CSSProperties` | `-`     | CSS style for the wrapper container.                      |
+| `buttonCapStyle`     | `React.CSSProperties` | `-`     | CSS style for the button cap.                             |
+
 ## 🧩 Extra Utilities
 
 ### Accessing the Controller Ref:
@@ -179,8 +232,14 @@ Default BVHOptions:
 // Access the character group (THREE.Group)
 ecctrlRef.current.group;
 
+// Access the character model (THREE.Group)
+ecctrlRef.current.model;
+
 // Reset current velocity to zero
 ecctrlRef.current.resetLinVel();
+
+// Add linear velocity directly
+ecctrlRef.current.addLinVel(THREE.Vector3);
 
 // Set linear velocity directly
 ecctrlRef.current.setLinVel(THREE.Vector3);
@@ -191,7 +250,7 @@ ecctrlRef.current.setMovement({
   backward: boolean,
   leftward: boolean,
   rightward: boolean,
-  joystick: THREE.Vector2,
+  joystick: { x: number; y: number },
   run: boolean,
   jump: boolean,
 });
@@ -210,6 +269,20 @@ characterStatus.movingDir; // THREE.Vector3
 characterStatus.isOnGround; // boolean
 characterStatus.isOnMovingPlatform; // boolean
 characterStatus.animationStatus; // "IDLE" | "WALK" | "RUN" | "JUMP_START" | "JUMP_IDLE" | "JUMP_FALL" | "JUMP_LAND"
+```
+
+### Accessing Character Animation Status (global store)
+
+```js
+// You can track the current animation state of the character using the global animation store
+import { useAnimationStore } from "bvhecctrl";
+
+const animationStatus = useAnimationStore((state) => state.animationStatus); // "IDLE" | "WALK" | "RUN" | "JUMP_START" | "JUMP_IDLE" | "JUMP_FALL" | "JUMP_LAND"
+
+// This value updates reactively and can be used in a useEffect:
+useEffect(() => {
+  console.log("Animation changed to:", animationStatus);
+}, [animationStatus]);
 ```
 
 ## 💰 Support This Project

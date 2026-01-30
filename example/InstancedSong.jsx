@@ -1,9 +1,9 @@
-import * as THREE from "three";
 import { Clone, Helper, Merged, useGLTF, useHelper } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
+import * as THREE from "three";
 import { MeshBVHHelper } from "three-mesh-bvh";
 import { useEcctrlStore } from "../src/stores/useEcctrlStore";
-import { useThree } from "@react-three/fiber";
 
 export default function InstancedSong(props) {
   // Load map model
@@ -81,11 +81,7 @@ export default function InstancedSong(props) {
         castShadow
         receiveShadow
         ref={instancedMeshRef}
-        args={[
-          songBuildModel.nodes.SongBuild.geometry,
-          songBuildModel.materials.GridTexture,
-          count,
-        ]}
+        args={[songBuildModel.nodes.SongBuild.geometry, songBuildModel.materials.GridTexture, count]}
       />
     </group>
   );
